@@ -17,9 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Change to meu-app directory
-        run: cd meu-app
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -28,7 +25,9 @@ jobs:
           cache-dependency-path: "meu-app/package-lock.json"
 
       - name: Install dependencies
+        working-directory: ./meu-app
         run: npm ci
 
       - name: Run tests
+        working-directory: ./meu-app
         run: npm test -- --watchAll=false
